@@ -24,6 +24,7 @@ export function buildPlagins({mode, paths, analyzer, platform}: BuildOptions): C
             __ENV__: JSON.stringify(mode),
             'process.env': {
                 NODE_ENV: JSON.stringify(mode),
+                REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL),
             },
         }),
 
@@ -43,13 +44,13 @@ export function buildPlagins({mode, paths, analyzer, platform}: BuildOptions): C
         }))
         plugins.push(new CopyPlugin({
             patterns: [
-                { from: path.resolve(paths.public, 'locales'), to: path.resolve(paths.output, 'locales'), },
+                {from: path.resolve(paths.public, 'locales'), to: path.resolve(paths.output, 'locales'),},
             ],
         }),)
 
     }
 
-    if(analyzer) {
+    if (analyzer) {
         plugins.push(new BundleAnalyzerPlugin())
     }
     return plugins;
