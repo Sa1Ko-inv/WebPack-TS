@@ -7,6 +7,7 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import path from "path";
 import CopyPlugin from "copy-webpack-plugin";
+const Dotenv = require('dotenv-webpack');
 
 export function buildPlagins({mode, paths, analyzer, platform}: BuildOptions): Configuration['plugins'] {
 
@@ -19,13 +20,12 @@ export function buildPlagins({mode, paths, analyzer, platform}: BuildOptions): C
             inject: 'body',
             favicon: path.resolve(paths.public, 'skeleton.ico')
         }),
+
+        new Dotenv(),
+
         new DefinePlugin({
             __PLATFORM__: JSON.stringify(platform),
             __ENV__: JSON.stringify(mode),
-            'process.env': {
-                NODE_ENV: JSON.stringify(mode),
-                REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL),
-            },
         }),
 
     ]
