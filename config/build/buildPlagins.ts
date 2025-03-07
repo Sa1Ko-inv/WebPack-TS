@@ -21,7 +21,10 @@ export function buildPlagins({mode, paths, analyzer, platform}: BuildOptions): C
             favicon: path.resolve(paths.public, 'skeleton.ico')
         }),
 
-        new Dotenv(),
+        new Dotenv({
+            systemvars: true,
+            path: path.resolve(__dirname, './../../src/.env'),
+        }),
 
         new DefinePlugin({
             __PLATFORM__: JSON.stringify(platform),
